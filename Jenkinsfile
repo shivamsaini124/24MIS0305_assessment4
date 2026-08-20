@@ -12,41 +12,44 @@ pipeline {
 
         stage('Setup Python') {
             steps {
-                sh 'python3 --version'
-                sh 'python3 -m pip install --user pytest'
+                sh '''
+                    python3 --version
+                    python3 -m venv .venv
+                    .venv/bin/python -m pip install --upgrade pip
+                    .venv/bin/python -m pip install pytest
+                '''
             }
         }
 
         stage('Banking Loan QA') {
             steps {
-                sh 'python3 -m pytest test_loan.py -v'
+                sh '.venv/bin/python -m pytest test_loan.py -v'
             }
         }
 
         stage('E-Commerce QA') {
             steps {
-                sh 'python3 -m pytest test_ecommerce.py -v'
+                sh '.venv/bin/python -m pytest test_ecommerce.py -v'
             }
         }
 
         stage('Hospital QA') {
             steps {
-                sh 'python3 -m pytest test_hospital.py -v'
+                sh '.venv/bin/python -m pytest test_hospital.py -v'
             }
         }
 
         stage('Airline QA') {
             steps {
-                sh 'python3 -m pytest test_airline.py -v'
+                sh '.venv/bin/python -m pytest test_airline.py -v'
             }
         }
 
         stage('Parking QA') {
             steps {
-                sh 'python3 -m pytest test_parking.py -v'
+                sh '.venv/bin/python -m pytest test_parking.py -v'
             }
         }
-
     }
 
     post {
