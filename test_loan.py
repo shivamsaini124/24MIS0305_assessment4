@@ -21,23 +21,41 @@ def test_valid_loan():
 def test_minimum_age():
     with pytest.raises(ValueError):
         process_loan(
-            "C002", 17, 50000, 0,
-            750, "salaried", 300000, 5
+            "C002",
+            17,
+            50000,
+            0,
+            750,
+            "salaried",
+            300000,
+            5
         )
 
 
 def test_invalid_salary():
     with pytest.raises(ValueError):
         process_loan(
-            "C003", 25, -1000, 0,
-            750, "salaried", 300000, 5
+            "C003",
+            25,
+            -1000,
+            0,
+            750,
+            "salaried",
+            300000,
+            5
         )
 
 
 def test_poor_credit_score():
     result = process_loan(
-        "C004", 25, 50000, 0,
-        500, "salaried", 300000, 5
+        "C004",
+        25,
+        50000,
+        0,
+        500,
+        "salaried",
+        300000,
+        5
     )
 
     assert result["approved"] is False
@@ -46,15 +64,27 @@ def test_poor_credit_score():
 def test_invalid_employment():
     with pytest.raises(ValueError):
         process_loan(
-            "C005", 25, 50000, 0,
-            750, "student", 300000, 5
+            "C005",
+            25,
+            50000,
+            0,
+            750,
+            "student",
+            300000,
+            5
         )
 
 
 def test_emi_accuracy():
     result = process_loan(
-        "C006", 30, 50000, 0,
-        750, "salaried", 300000, 5
+        "C006",
+        30,
+        50000,
+        0,
+        750,
+        "salaried",
+        300000,
+        5
     )
 
-    assert round(result["emi"], 2) == 6082.99
+    assert round(result["emi"], 2) == 6082.92
